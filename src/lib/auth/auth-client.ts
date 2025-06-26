@@ -12,6 +12,6 @@ export const {
     deleteUser,
     updateUser,
 } = createAuthClient({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://fixpoint-liart.vercel.app",
     plugins: [phoneNumberClient(), adminClient()],
 });
