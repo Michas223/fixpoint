@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 import { Toaster } from "@/components/ui/sonner";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -27,7 +26,6 @@ export default function RootLayout({
             suppressHydrationWarning
         >
             <body className={`${inter.variable} antialiased`}>
-                <SpeedInsights />
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"

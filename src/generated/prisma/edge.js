@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.10.1
- * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+ * Prisma Client JS version: 6.7.0
+ * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
  */
 Prisma.prismaVersion = {
-  client: "6.10.1",
-  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
+  client: "6.7.0",
+  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -219,14 +219,6 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
-      },
-      {
-        "fromEnvVar": null,
-        "value": "rhel-openssl-1.0.x"
-      },
-      {
-        "fromEnvVar": null,
-        "value": "linux-musl"
       }
     ],
     "previewFeatures": [],
@@ -238,8 +230,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
-  "clientVersion": "6.10.1",
-  "engineVersion": "9b628578b3b7cae625e8c927178f15a170e74a9c",
+  "clientVersion": "6.7.0",
+  "engineVersion": "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed",
   "datasourceNames": [
     "db"
   ],
@@ -253,8 +245,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../src/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-1.0.x\", \"linux-musl\"]\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  email         String    @unique\n  name          String\n  phoneNumber   String?\n  emailVerified Boolean\n  image         String?\n  createdAt     DateTime\n  updatedAt     DateTime\n  sessions      Session[]\n  accounts      Account[]\n  orders        Order[] // Dodano relację do zleceń\n\n  phoneNumberVerified Boolean?\n  role                String?\n  banned              Boolean?\n  banReason           String?\n  banExpires          DateTime?\n\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  impersonatedBy String?\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nenum OrderStatus {\n  PENDING\n  DELIVERY\n  DIAGNOZE\n  WAITING_FOR_PARTS\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n}\n\nenum OrderDeliveryMethod {\n  MYSELF\n  TECH_ARRIVAL\n  DELIVERY\n}\n\nmodel Order {\n  id                     Int                  @id @default(autoincrement())\n  title                  String\n  description            String\n  createdAt              DateTime             @default(now())\n  updatedAt              DateTime             @updatedAt\n  userId                 String\n  user                   User                 @relation(fields: [userId], references: [id], onDelete: Cascade)\n  price                  Int?\n  deliveryMethod         OrderDeliveryMethod?\n  currentStatus          OrderStatus          @default(PENDING)\n  history                OrderHistory[]\n  arrivedAt              DateTime?\n  expectedCompletionDate DateTime?\n\n  @@index([userId])\n  @@map(\"order\")\n}\n\nmodel OrderHistory {\n  id        String      @id @default(cuid())\n  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  orderId   Int\n  status    OrderStatus\n  message   String\n  createdAt DateTime    @default(now())\n}\n",
-  "inlineSchemaHash": "c0a76679c87f43f2e1559781b57df9bf1d5be13bcf2b5b7e92a45d45ace459f2",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  email         String    @unique\n  name          String\n  phoneNumber   String?\n  emailVerified Boolean\n  image         String?\n  createdAt     DateTime\n  updatedAt     DateTime\n  sessions      Session[]\n  accounts      Account[]\n  orders        Order[] // Dodano relację do zleceń\n\n  phoneNumberVerified Boolean?\n  role                String?\n  banned              Boolean?\n  banReason           String?\n  banExpires          DateTime?\n\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  impersonatedBy String?\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nenum OrderStatus {\n  PENDING\n  DELIVERY\n  DIAGNOZE\n  WAITING_FOR_PARTS\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n}\n\nenum OrderDeliveryMethod {\n  MYSELF\n  TECH_ARRIVAL\n  DELIVERY\n}\n\nmodel Order {\n  id                     Int                  @id @default(autoincrement())\n  title                  String\n  description            String\n  createdAt              DateTime             @default(now())\n  updatedAt              DateTime             @updatedAt\n  userId                 String\n  user                   User                 @relation(fields: [userId], references: [id], onDelete: Cascade)\n  price                  Int?\n  deliveryMethod         OrderDeliveryMethod?\n  currentStatus          OrderStatus          @default(PENDING)\n  history                OrderHistory[]\n  arrivedAt              DateTime?\n  expectedCompletionDate DateTime?\n\n  @@index([userId])\n  @@map(\"order\")\n}\n\nmodel OrderHistory {\n  id        String      @id @default(cuid())\n  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)\n  orderId   Int\n  status    OrderStatus\n  message   String\n  createdAt DateTime    @default(now())\n}\n",
+  "inlineSchemaHash": "a25e25409a83bb8153f4345fa4fa4a0d0adb5b1f5afa639e89f6d4f733167512",
   "copyEngine": true
 }
 config.dirname = '/'

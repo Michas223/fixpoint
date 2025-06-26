@@ -40,7 +40,6 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-    runtime: "nodejs",
     matcher: [
         "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
     ],
