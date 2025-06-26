@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { CreateOrderSchema } from "@/lib/zod";
 import z from "zod";
-import { OrderDeliveryMethod } from "@prisma";
+import { OrderDeliveryMethod } from "@prisma/client";
 
 export default async function newOrder(
     values: z.infer<typeof CreateOrderSchema>

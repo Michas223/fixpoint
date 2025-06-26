@@ -21,7 +21,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  orders        Order[] // Dodano relację do zleceń
+  orders        Order[]
 
   phoneNumberVerified Boolean?
   role                String?

@@ -1,4 +1,4 @@
-import { type OrderHistory } from "@prisma";
+import { type OrderHistory } from "@prisma/client";
 import OrderStatus from "./order-status";
 
 export default function OrderHistoryEntry({
