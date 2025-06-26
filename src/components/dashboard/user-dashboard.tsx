@@ -1,6 +1,6 @@
 "use client";
 
-import type { Order as OrderType } from "@/generated/prisma/client";
+import type { Order as OrderType } from "@prisma/client";
 import { Icons } from "@/components/icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";

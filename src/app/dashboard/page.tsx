@@ -4,7 +4,7 @@ import { Icons } from "@/components/icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { auth } from "@/lib/auth/auth";
 import { db } from "@/lib/prisma";
-import type { Order } from "@/generated/prisma/client";
+import type { Order } from "@prisma/client";
 import { headers } from "next/headers";
 
 export default async function Page() {

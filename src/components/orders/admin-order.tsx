@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@/components/ui/button";
-import { type OrderStatus } from "@/generated/prisma";
+import { type OrderStatus } from "@prisma";
 import { PrintQRCode } from "@/components/qrcode/print-qrcode";
 
 export default function AdminOrder({

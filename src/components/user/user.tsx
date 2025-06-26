@@ -1,6 +1,6 @@
 "use client";
 
-import { User as UserType } from "@/generated/prisma/client";
+import { User as UserType } from "@prisma/client";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";

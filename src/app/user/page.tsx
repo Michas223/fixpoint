@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth/auth";
 import { db } from "@/lib/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { User as UserType } from "@/generated/prisma/client";
+import { User as UserType } from "@prisma/client";
 
 interface PageProps {
     searchParams: Promise<{ id: string }>;

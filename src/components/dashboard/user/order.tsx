@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { type Order as OrderDataType } from "@/generated/prisma";
+import { type Order as OrderDataType } from "@prisma";
 
 export default function Order({
     title,

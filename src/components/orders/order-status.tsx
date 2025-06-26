@@ -1,6 +1,6 @@
 "use client";
 
-import { type OrderStatus as OrderStatusType } from "@/generated/prisma";
+import { type OrderStatus as OrderStatusType } from "@prisma";
 import { cn } from "@/lib/utils";
 
 const orderStatus = {

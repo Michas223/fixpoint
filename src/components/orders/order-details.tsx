@@ -1,7 +1,7 @@
 import {
     type OrderHistory as OrderHistoryType,
     type Order as OrderDataType,
-} from "@/generated/prisma";
+} from "@prisma";
 import OrderStatus from "@/components/orders/order-status";
 import OrderData from "@/components/orders/data";
 import { Separator } from "@/components/ui/separator";
