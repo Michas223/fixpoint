@@ -2,8 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "linux-musl"]
 }
 
 datasource db {
@@ -97,7 +98,7 @@ enum OrderDeliveryMethod {
 }
 
 model Order {
-  id                     String               @id @default(cuid())
+  id                     Int                  @id @default(autoincrement())
   title                  String
   description            String
   createdAt              DateTime             @default(now())
@@ -117,8 +118,8 @@ model Order {
 
 model OrderHistory {
   id        String      @id @default(cuid())
-  order     Order       @relation(fields: [orderId], references: [id])
-  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId   Int
   status    OrderStatus
   message   String
   createdAt DateTime    @default(now())
