@@ -33,6 +33,7 @@ export default function OrderDetails({
                         <AdminOrder
                             orderId={orderData.id.toString().padStart(7, "0")}
                             orderStatus={orderData.currentStatus}
+                            orderPrice={orderData.price}
                         />
                     )}
                     <div className="w-full flex flex-col lg:flex-row justify-between gap-2">
@@ -80,7 +81,9 @@ export default function OrderDetails({
                         <p className="text-xl">
                             Cena:{" "}
                             <span className="font-bold">
-                                {orderData.price || "Nie ustalona"}
+                                {orderData.price
+                                    ? `${orderData.price} zł`
+                                    : "Nie ustalona"}
                             </span>
                         </p>
                     </div>

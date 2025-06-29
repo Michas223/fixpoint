@@ -1,3 +1,4 @@
+import { OrderStatus } from "@prisma/client";
 import { z } from "zod";
 
 export const PhoneNumberSchema = z.object({
@@ -63,5 +64,30 @@ export const CreateOrderSchema = z.object({
     description: z.string().min(1, "Opis problemu jest wymagany"),
     deliveryMethod: z.enum(["myself", "tech_arrival", "delivery"], {
         errorMap: () => ({ message: "Wybierz sposób dostarczenia sprzętu" }),
+    }),
+});
+
+export const ChangeOrderStatusSchema = z.object({
+    status: z.nativeEnum(OrderStatus, {
+        required_error: "Wybierz nowy status.",
+    }),
+    description: z.string().min(1, "Opis jest wymagany"),
+});
+
+export const SetOrderPriceSchema = z.object({
+    price: z.number({
+        required_error: "Wpisz cene.",
+    }),
+});
+
+export const SetOrderArrivedAtSchema = z.object({
+    arrivedAt: z.date({
+        required_error: "Data przyjęcia jest wymagana.",
+    }),
+});
+
+export const SetOrderCompletionDateSchema = z.object({
+    expectedCompletionDate: z.date({
+        required_error: "Data przyjęcia jest wymagana.",
     }),
 });

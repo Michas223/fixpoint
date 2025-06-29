@@ -9,7 +9,7 @@ import { LoginSchema, RegisterSchema } from "../zod";
 
 export const auth = betterAuth({
     database: prismaAdapter(db, {
-        provider: "postgresql",
+        provider: "sqlite",
     }),
     emailAndPassword: {
         enabled: true,

@@ -58,27 +58,10 @@ export default function User({
         <>
             <AnimatePresence>
                 {showModal && (
-                    <DeleteAccountModal>
-                        <Icons.userX className="size-24" />
-                        <p className="text-xl font-bold">Usuń konto</p>
-                        <p className="text-center text-sm text-accent-foreground">
-                            Czy jesteś pewny że chcesz usunąć konto?
-                        </p>
-                        <Button
-                            className="w-full cursor-pointer py-6"
-                            variant="outline"
-                            onClick={() => setShowModal(false)}
-                        >
-                            Anuluj usunięcie konta
-                        </Button>
-                        <Button
-                            className="w-full cursor-pointer py-6"
-                            variant="destructive"
-                            onClick={handleSubmitModal}
-                        >
-                            Usuń konto
-                        </Button>
-                    </DeleteAccountModal>
+                    <DeleteAccountModal
+                        setShowModal={setShowModal}
+                        handleSubmitModal={handleSubmitModal}
+                    />
                 )}
             </AnimatePresence>
             <div className="grow-1 w-full relative p-12">

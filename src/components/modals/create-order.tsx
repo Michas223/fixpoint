@@ -10,7 +10,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import newOrder from "@/actions/orders";
+import { newOrder } from "@/actions/orders";
 import { CreateOrderSchema } from "@/lib/zod";
 import {
     Form,
@@ -54,8 +54,7 @@ export default function CreateOrderModal({
                 return;
             }
 
-            setShow(false);
-            router.push("/dashboard");
+            router.push(`/orders/${res.orderId}`);
         } catch (error) {
             setError("Wystąpił błąd podczas wysyłania zlecenia");
         } finally {
