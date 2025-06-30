@@ -62,6 +62,12 @@ export default function AdminOrder({
                         setShow={setShowSetCompletionDate}
                     />
                 )}
+                {showSetArrivedAtModal && (
+                    <SetArrivedAtModal
+                        orderId={orderId}
+                        setShow={setShowSetCompletionDate}
+                    />
+                )}
             </AnimatePresence>
 
             <div className="w-full flex flex-col justify-center items-center gap-4">

@@ -29,7 +29,7 @@ export default function MainSection() {
                         </div>
                         <div className="flex flex-col gap-2 min-[400px]:flex-row">
                             <Button asChild size="lg">
-                                <Link href="/login">Zleć naprawę</Link>
+                                <Link href="/dashboard">Zleć naprawę</Link>
                             </Button>
                             <Button asChild variant="outline" size="lg">
                                 <Link href="#uslugi">Nasze usługi</Link>

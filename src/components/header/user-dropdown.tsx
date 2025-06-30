@@ -10,21 +10,36 @@ import { Icons } from "../icons";
 import Link from "next/link";
 import { signOut } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function UserDropDown({
-    isLoggedIn,
-    isAdmin,
-}: {
+interface UserDropDownProps {
     isLoggedIn: boolean;
     isAdmin: boolean;
-}) {
+}
+
+export default function UserDropDown({
+    isLoggedIn: initialIsLoggedIn,
+    isAdmin: initialIsAdmin,
+}: UserDropDownProps) {
     const router = useRouter();
 
+    const [isLoggedIn, setIsLoggedIn] = useState(initialIsLoggedIn);
+    const [isAdmin, setIsAdmin] = useState(initialIsAdmin);
+
+    useEffect(() => {
+        setIsLoggedIn(initialIsLoggedIn);
+        setIsAdmin(initialIsAdmin);
+    }, [initialIsLoggedIn, initialIsAdmin]);
+
     const handleSignOutClick = async () => {
+        setIsLoggedIn(false);
+        setIsAdmin(false);
+
         await signOut({
             fetchOptions: {
                 onSuccess: () => {
                     router.push("/login");
+                    router.refresh();
                 },
             },
         });

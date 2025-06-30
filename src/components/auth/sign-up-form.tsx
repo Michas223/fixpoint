@@ -253,13 +253,7 @@ export default function SignUpForm() {
                                             href="/terms"
                                             className="text-primary hover:underline"
                                         >
-                                            regulamin
-                                        </Link>
-                                        <Link
-                                            href="/privacy"
-                                            className="text-primary hover:underline"
-                                        >
-                                            politykę prywatności
+                                            regulamin i politykę prywatności
                                         </Link>
                                     </Label>
                                 </div>

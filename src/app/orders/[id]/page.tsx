@@ -23,10 +23,13 @@ export default async function Page({
 
     const userId = session.user.id;
     const orderData = await db.order.findFirst({
-        where: { userId: userId, id: formatedOrderId },
+        where: { id: formatedOrderId },
     });
 
     if (!orderData) return <NotFound />;
+
+    if (orderData.userId !== userId && session.user.role === "user")
+        return <NotFound />;
 
     let isAdmin = false;
 

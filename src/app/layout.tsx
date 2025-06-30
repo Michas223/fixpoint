@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
 import { Toaster } from "@/components/ui/sonner";
+import CookieConsent from "@/components/cookie-consent";
+import { AnimatePresence } from "motion/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -37,6 +39,7 @@ export default function RootLayout({
                         <Toaster />
                         <Footer />
                     </div>
+                    <CookieConsent />
                 </ThemeProvider>
             </body>
         </html>

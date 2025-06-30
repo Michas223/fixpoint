@@ -1,3 +1,5 @@
+import OrdersTable from "./admin/admin/table";
+import UsersTable from "./admin/users/table";
 import CreateOrder from "./create-order";
 
 export default function AdminDashboard() {
@@ -7,6 +9,8 @@ export default function AdminDashboard() {
                 <div className="container flex flex-col gap-8">
                     <CreateOrder />
                 </div>
+                <UsersTable />
+                <OrdersTable />
             </div>
         </>
     );

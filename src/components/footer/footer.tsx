@@ -34,16 +34,10 @@ export default function Footer() {
                     </div>
                     <nav className="flex gap-4 sm:gap-6">
                         <Link
-                            href="/polityka-prywatnosci"
-                            className="text-sm font-medium hover:underline underline-offset-4"
-                        >
-                            Polityka prywatności
-                        </Link>
-                        <Link
                             href="/terms"
                             className="text-sm font-medium hover:underline underline-offset-4"
                         >
-                            Regulamin
+                            Regulamin i Polityka prywatności
                         </Link>
                     </nav>
                 </div>
