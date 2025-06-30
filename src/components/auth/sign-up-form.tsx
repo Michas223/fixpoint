@@ -19,9 +19,40 @@ export default function SignUpForm() {
         useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
+    const [formData, setFormData] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        phone: "+48",
+        password: "",
+        confirmpassword: "",
+    });
+
     const switchShowPassword = () => setShowPassword((prev) => !prev);
     const switchShowConfirmPassword = () =>
         setShowConfirmPassword((prev) => !prev);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const data = new FormData();
+        data.append("firstname", formData.firstname);
+        data.append("lastname", formData.lastname);
+        data.append("email", formData.email);
+        data.append("phone", formData.phone);
+        data.append("password", formData.password);
+        data.append("confirmpassword", formData.confirmpassword);
+
+        formAction(data);
+    };
 
     useEffect(() => {
         if (state.errorMessage.length) {
@@ -104,6 +135,8 @@ export default function SignUpForm() {
                                                 id="firstname"
                                                 placeholder="Jan"
                                                 className={`pl-10`}
+                                                value={formData.firstname}
+                                                onChange={handleChange}
                                                 required
                                             />
                                         </div>
@@ -123,6 +156,8 @@ export default function SignUpForm() {
                                                 id="lastname"
                                                 placeholder="Kowalski"
                                                 className={`pl-10`}
+                                                value={formData.lastname}
+                                                onChange={handleChange}
                                                 required
                                             />
                                         </div>
@@ -144,6 +179,8 @@ export default function SignUpForm() {
                                             name="email"
                                             placeholder="twoj@email.pl"
                                             className={`pl-10`}
+                                            value={formData.email}
+                                            onChange={handleChange}
                                             required
                                         />
                                     </div>
@@ -164,6 +201,13 @@ export default function SignUpForm() {
                                             type="tel"
                                             placeholder="+48 123 456 789"
                                             className={`pl-10`}
+                                            value={
+                                                formData.phone === ""
+                                                    ? "+48"
+                                                    : formData.phone
+                                            }
+                                            onChange={handleChange}
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -187,6 +231,8 @@ export default function SignUpForm() {
                                             }
                                             placeholder="********"
                                             className={`pl-10 pr-10`}
+                                            value={formData.password}
+                                            onChange={handleChange}
                                             required
                                         />
                                         <button

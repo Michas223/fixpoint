@@ -7,6 +7,7 @@ import OrderData from "@/components/orders/data";
 import { Separator } from "@/components/ui/separator";
 import OrderHistoryEntry from "@/components/orders/order-history-entry";
 import AdminOrder from "@/components/orders/admin-order";
+import { format } from "date-fns";
 
 export default function OrderDetails({
     orderData,
@@ -17,14 +18,6 @@ export default function OrderDetails({
     orderHistory: OrderHistoryType[];
     isAdmin: boolean;
 }) {
-    const formatDate = (date: Date) => {
-        const d = new Date(date);
-        const day = String(d.getDate()).padStart(2, "0");
-        const month = String(d.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
-        const year = d.getFullYear();
-        return `${day}.${month}.${year}`;
-    };
-
     return (
         <>
             <div className="grow-1 w-full relative p-12">
@@ -46,24 +39,14 @@ export default function OrderDetails({
                                 <Separator orientation="vertical" />
                             </div>
                             <OrderData
-                                title="Data przyjęcia sprzętu"
-                                data={
-                                    orderData.arrivedAt
-                                        ? formatDate(orderData.arrivedAt)
-                                        : "?"
-                                }
-                            />
-                            <div className="w-1 flex justify-center">
-                                <Separator orientation="vertical" />
-                            </div>
-                            <OrderData
                                 title="Oczekiwany czas zakończenia naprawy"
                                 data={
                                     orderData.expectedCompletionDate
-                                        ? formatDate(
-                                              orderData.expectedCompletionDate
+                                        ? format(
+                                              orderData.expectedCompletionDate,
+                                              "Pp"
                                           )
-                                        : "?"
+                                        : "Nie określono"
                                 }
                             />
                         </div>

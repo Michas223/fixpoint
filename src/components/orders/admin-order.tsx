@@ -8,7 +8,6 @@ import { PrintQRCode } from "@/components/qrcode/print-qrcode";
 import ChangeStatusModal from "@/components/modals/change-status";
 import { AnimatePresence } from "motion/react";
 import SetPriceModal from "@/components/modals/set-price";
-import SetArrivedAtModal from "../modals/set-arrived";
 import SetCompletionDateModal from "../modals/set-completion-date";
 
 export default function AdminOrder({
@@ -29,8 +28,6 @@ export default function AdminOrder({
     const [showChangeStatusModal, setShowChangeStatusModal] =
         useState<boolean>(false);
     const [showSetPriceModal, setShowSetPriceModal] = useState<boolean>(false);
-    const [showSetArrivedAtModal, setShowSetArrivedAtModal] =
-        useState<boolean>(false);
     const [showSetCompletionDateModal, setShowSetCompletionDate] =
         useState<boolean>(false);
 
@@ -58,12 +55,6 @@ export default function AdminOrder({
                 )}
                 {showSetCompletionDateModal && (
                     <SetCompletionDateModal
-                        orderId={orderId}
-                        setShow={setShowSetCompletionDate}
-                    />
-                )}
-                {showSetArrivedAtModal && (
-                    <SetArrivedAtModal
                         orderId={orderId}
                         setShow={setShowSetCompletionDate}
                     />
@@ -96,13 +87,6 @@ export default function AdminOrder({
                     onClick={() => setShowSetPriceModal(true)}
                 >
                     Ustal cene
-                </Button>
-                <Button
-                    variant="outline"
-                    className="w-full cursor-pointer"
-                    onClick={() => setShowSetArrivedAtModal(true)}
-                >
-                    Ustal date przyjęcia
                 </Button>
                 <Button
                     variant="outline"

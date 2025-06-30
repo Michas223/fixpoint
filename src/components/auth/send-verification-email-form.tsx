@@ -9,13 +9,9 @@ import { useRouter } from "next/navigation";
 import { sendVerificationEmail } from "@/lib/auth/auth-client";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
-export default function SendVerificationEmailForm({
-    error,
-}: {
-    error: string;
-}) {
+export default function SendVerificationEmailForm({}: {}) {
     const [isPending, setIsPending] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string>(error || "");
+    const [errorMessage, setErrorMessage] = useState<string>("");
     const router = useRouter();
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -27,7 +23,7 @@ export default function SendVerificationEmailForm({
 
         await sendVerificationEmail({
             email,
-            callbackURL: "/verify",
+            callbackURL: "/verify/success",
             fetchOptions: {
                 onRequest: () => {
                     setIsPending(true);
@@ -39,7 +35,7 @@ export default function SendVerificationEmailForm({
                     setErrorMessage(ctx.error.message);
                 },
                 onSuccess: () => {
-                    router.push("/verify/success");
+                    router.push("/verify/success-send");
                 },
             },
         });
@@ -51,12 +47,7 @@ export default function SendVerificationEmailForm({
                 <Alert variant="destructive">
                     <Icons.x className="h-4 w-4" />
                     <AlertTitle>Wystąpił błąd podczas weryfikacji!</AlertTitle>
-                    <AlertDescription>
-                        {errorMessage === "invalid_token" ||
-                        errorMessage === "token_expired"
-                            ? "Token wygasł lub jest nie prawidłowy."
-                            : errorMessage}
-                    </AlertDescription>
+                    <AlertDescription>{errorMessage}</AlertDescription>
                 </Alert>
             )}
             <form className="space-y-4" onSubmit={handleSubmit}>

@@ -11,7 +11,7 @@ export default function MainSection() {
         <>
             <section
                 id="strona-glowna"
-                className="w-full relative py-12 md:py-31 bg-background"
+                className="min-h-auto md:min-h-[calc(100vh-4rem)] md:flex md:justify-center md:items-center w-full relative py-12 md:py-31 bg-background"
             >
                 <div className="container flex flex-col gap-6 lg:flex-row justify-center lg:gap-12 px-4 md:px-6">
                     <div className="lg:max-w-1/2 flex flex-col justify-center gap-4">

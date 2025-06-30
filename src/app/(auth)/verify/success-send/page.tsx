@@ -1,15 +1,7 @@
 import { Icons } from "@/components/icons";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-interface PageProps {
-    searchParams: Promise<{ error: string }>;
-}
-
-export default async function Page({ searchParams }: PageProps) {
-    const sp = await searchParams;
-
-    const error = sp.error;
-
+export default async function Page() {
     return (
         <>
             <div className="grow flex flex-col bg-background">
@@ -28,20 +20,11 @@ export default async function Page({ searchParams }: PageProps) {
                                 </h1>
                             </div>
 
-                            <Alert variant={error ? "destructive" : "success"}>
-                                {error ? (
-                                    <Icons.x className="h-4 w-4" />
-                                ) : (
-                                    <Icons.check className="h-4 w-4" />
-                                )}
-                                <AlertTitle>
-                                    {error ? "Wystąpił błąd" : "Sukces!"}
-                                </AlertTitle>
+                            <Alert variant="success">
+                                <Icons.check className="h-4 w-4" />
+                                <AlertTitle>Sukces!</AlertTitle>
                                 <AlertDescription>
-                                    {error === "invalid_token" ||
-                                    error === "token_expired"
-                                        ? "Token wygasł lub jest nie prawidłowy."
-                                        : "Pomyślnie zweryfikowano adres e-mail."}
+                                    Wiadomość e-mail została wysłana.
                                 </AlertDescription>
                             </Alert>
                         </div>

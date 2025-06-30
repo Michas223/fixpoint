@@ -1,13 +1,7 @@
 import SendVerificationEmailForm from "@/components/auth/send-verification-email-form";
 import { Icons } from "@/components/icons";
 
-interface PageProps {
-    searchParams: Promise<{ error: string }>;
-}
-
-export default async function Page({ searchParams }: PageProps) {
-    const sp = await searchParams;
-
+export default async function Page() {
     return (
         <>
             <div className="grow flex flex-col bg-background">
@@ -26,7 +20,7 @@ export default async function Page({ searchParams }: PageProps) {
                                 </h1>
                             </div>
 
-                            <SendVerificationEmailForm error={sp.error} />
+                            <SendVerificationEmailForm />
                         </div>
                     </div>
                 </main>

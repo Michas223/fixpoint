@@ -80,14 +80,8 @@ export const SetOrderPriceSchema = z.object({
     }),
 });
 
-export const SetOrderArrivedAtSchema = z.object({
-    arrivedAt: z.date({
-        required_error: "Data przyjęcia jest wymagana.",
-    }),
-});
-
 export const SetOrderCompletionDateSchema = z.object({
     expectedCompletionDate: z.date({
-        required_error: "Data przyjęcia jest wymagana.",
+        required_error: "Data zakończenia naprawy jest wymagana.",
     }),
 });

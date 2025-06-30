@@ -59,7 +59,7 @@ export async function signUp(pervState: State, formData: FormData) {
         }
     }
 
-    redirect("/verify/success");
+    redirect("/verify/success-send");
 }
 
 export async function signIn(pervState: State, formData: FormData) {

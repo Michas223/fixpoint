@@ -9,7 +9,7 @@ const authRoutes = [
     "/login",
     "/register",
     "/verify",
-    "/verify/success",
+    "/verify/success-send",
     "/login/forgot-password",
     "/login/forgot-password/reset-password",
 ];

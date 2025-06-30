@@ -1,5 +1,6 @@
 import { type OrderHistory } from "@prisma/client";
 import OrderStatus from "./order-status";
+import { format } from "date-fns";
 
 export default function OrderHistoryEntry({
     entryData,
@@ -19,7 +20,7 @@ export default function OrderHistoryEntry({
             <div className="w-full flex flex-col gap-4 border-b-2 last:border-none border-dotted py-4">
                 <div className="flex gap-2">
                     <OrderStatus status={entryData.status} className="w-48" />
-                    <p>{formatDate(entryData.createdAt)}</p>
+                    <p>{format(entryData.createdAt, "Pp")}</p>
                 </div>
                 <ul className="list-disc list-inside">
                     <li>{entryData.message}</li>
