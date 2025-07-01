@@ -17,6 +17,11 @@ export async function signUp(pervState: State, formData: FormData) {
         firstName: formData.get("firstname") as string,
         lastName: formData.get("lastname") as string,
         phoneNumber: formData.get("phone") as string,
+        flat: formData.get("flat") as unknown as number,
+        postalCode: formData.get("postalCode") as string,
+        city: formData.get("city") as string,
+        street: formData.get("street") as string,
+        buildingNumber: formData.get("buildingNumber") as unknown as number,
     };
 
     const {
@@ -26,6 +31,11 @@ export async function signUp(pervState: State, formData: FormData) {
         firstName,
         lastName,
         phoneNumber,
+        flat,
+        postalCode,
+        city,
+        street,
+        buildingNumber,
     } = rawFormData;
 
     if (password !== confirmPassword) {
@@ -41,6 +51,11 @@ export async function signUp(pervState: State, formData: FormData) {
                 email,
                 password,
                 phoneNumber,
+                flat,
+                postalCode,
+                city,
+                street,
+                buildingNumber,
             },
         });
     } catch (error) {
