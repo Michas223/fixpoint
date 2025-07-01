@@ -9,6 +9,10 @@ import OrderHistoryEntry from "@/components/orders/order-history-entry";
 import AdminOrder from "@/components/orders/admin-order";
 import { format } from "date-fns";
 
+function capitalizeFirstLetter(val: string) {
+    return String(val).charAt(0).toUpperCase() + String(val).slice(1);
+}
+
 export default function OrderDetails({
     orderData,
     orderHistory,
@@ -18,6 +22,12 @@ export default function OrderDetails({
     orderHistory: OrderHistoryType[];
     isAdmin: boolean;
 }) {
+    const deliveryMethods = {
+        MYSELF: "Osobiście",
+        TECH_ARRIVAL: "Dojazd technika",
+        DELIVERY: "Kurierem",
+    };
+
     return (
         <>
             <div className="grow-1 w-full relative p-12">
@@ -39,6 +49,13 @@ export default function OrderDetails({
                                 <Separator orientation="vertical" />
                             </div>
                             <OrderData
+                                title="Sposób dostarczenia"
+                                data={deliveryMethods[orderData.deliveryMethod]}
+                            />
+                            <div className="w-1">
+                                <Separator orientation="vertical" />
+                            </div>
+                            <OrderData
                                 title="Oczekiwany czas zakończenia naprawy"
                                 data={
                                     orderData.expectedCompletionDate
@@ -55,6 +72,7 @@ export default function OrderDetails({
                     <div className="flex flex-col md:flex-row justify-between items-start gap-2">
                         <div className="max-w-auto md:max-w-1/2 flex flex-col">
                             <p className="text-xl font-bold">
+                                {capitalizeFirstLetter(orderData.deviceType)} |{" "}
                                 {orderData.title}
                             </p>
                             <p className="text-sm text-accent-foreground opacity-80">

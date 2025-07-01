@@ -31,6 +31,8 @@ import {
     CalendarIcon,
     Cookie,
     MoreHorizontal,
+    MapPin,
+    Building,
 } from "lucide-react";
 
 export const Icons = {
@@ -64,6 +66,8 @@ export const Icons = {
     device: MonitorSmartphone,
     calendar: CalendarIcon,
     cookie: Cookie,
+    mapPin: MapPin,
+    building: Building,
     moreHorizontal: MoreHorizontal,
     logo: ({ ...props }: LucideProps) => {
         <svg {...props}></svg>;

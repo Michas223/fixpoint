@@ -1,10 +1,38 @@
 import { OrderStatus } from "@prisma/client";
 import { z } from "zod";
 
-export const PhoneNumberSchema = z.object({
-    phoneNumber: z.string().regex(/^\+?\d{9,15}$/, {
-        message: "Nieprawidłowy numer telefonu",
-    }),
+export const EditUserSchema = z.object({
+    phoneNumber: z
+        .string()
+        .regex(/^\+?\d{9,15}$/, {
+            message: "Nieprawidłowy numer telefonu",
+        })
+        .optional(),
+    postalCode: z
+        .string({
+            message: "Nieprawidłowy kod pocztowy",
+        })
+        .optional(),
+    city: z
+        .string({
+            message: "Nieprawidłowe miasto",
+        })
+        .optional(),
+    street: z
+        .string({
+            message: "Nieprawidłowa nazwa ulicy",
+        })
+        .optional(),
+    buildingNumber: z
+        .number({
+            message: "Nieprawidłowy numer budynku",
+        })
+        .optional(),
+    flat: z
+        .number({
+            message: "Nieprawidłowy numer mieszkania",
+        })
+        .optional(),
 });
 
 export const RegisterSchema = z.object({
@@ -57,6 +85,8 @@ export const LoginSchema = z.object({
 });
 
 export const CreateOrderSchema = z.object({
+    deviceType: z.string().min(2, "Typ urządzenia nieprawidłowy"),
+    otherDeviceType: z.string().optional(),
     device: z
         .string()
         .min(1, "Nazwa urządzenia jest wymagana")

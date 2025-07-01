@@ -7,7 +7,7 @@ export default function AdminDashboard() {
         <>
             <div className="grow-1 w-full relative p-12">
                 <div className="container flex flex-col gap-8">
-                    <CreateOrder />
+                    <CreateOrder isAdressExist={true} />
                 </div>
                 <UsersTable />
                 <OrdersTable />

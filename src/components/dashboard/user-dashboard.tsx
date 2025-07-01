@@ -9,9 +9,11 @@ import CreateOrder from "./create-order";
 export default function UserDashboard({
     phoneNumber,
     orders,
+    isAdressExist,
 }: {
     phoneNumber?: string | null | undefined;
     orders: OrderType[];
+    isAdressExist: boolean;
 }) {
     return (
         <>
@@ -27,7 +29,10 @@ export default function UserDashboard({
                             </AlertDescription>
                         </Alert>
                     )}
-                    <CreateOrder disabled={!phoneNumber} />
+                    <CreateOrder
+                        disabled={!phoneNumber}
+                        isAdressExist={isAdressExist}
+                    />
                     <div className="w-full flex flex-col gap-4">
                         <h1 className="text-2xl font-bold">Twoje naprawy:</h1>
                         <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 flex-wrap gap-4">

@@ -28,6 +28,7 @@ export default async function Page() {
 
     const user = session.user;
 
+    let isAdressExist = true;
     let orders: Order[] = [];
 
     if (user.role === "user") {
@@ -36,12 +37,22 @@ export default async function Page() {
                 userId: user.id,
             },
         });
+
+        isAdressExist =
+            !!user.postalCode &&
+            !!user.city &&
+            !!user.street &&
+            !!user.buildingNumber;
     }
 
     return (
         <>
             {user.role === "user" ? (
-                <UserDashboard phoneNumber={user.phoneNumber} orders={orders} />
+                <UserDashboard
+                    phoneNumber={user.phoneNumber}
+                    isAdressExist={isAdressExist}
+                    orders={orders}
+                />
             ) : (
                 <AdminDashboard />
             )}

@@ -17,7 +17,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { setArrivedAt, setCompletionDate } from "@/actions/orders";
+import { setCompletionDate } from "@/actions/orders";
 import {
     Popover,
     PopoverContent,

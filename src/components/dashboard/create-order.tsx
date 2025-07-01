@@ -5,14 +5,23 @@ import CreateOrderModal from "../modals/create-order";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
-export default function CreateOrder({ disabled }: { disabled?: boolean }) {
+export default function CreateOrder({
+    disabled,
+    isAdressExist,
+}: {
+    disabled?: boolean;
+    isAdressExist: boolean;
+}) {
     const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
     return (
         <>
             <AnimatePresence>
                 {showCreateModal && (
-                    <CreateOrderModal setShow={setShowCreateModal} />
+                    <CreateOrderModal
+                        setShow={setShowCreateModal}
+                        isAdressExist={isAdressExist}
+                    />
                 )}
             </AnimatePresence>
             <Button

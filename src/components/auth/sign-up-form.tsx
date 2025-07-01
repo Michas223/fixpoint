@@ -201,13 +201,12 @@ export default function SignUpForm() {
                                             type="tel"
                                             placeholder="+48 123 456 789"
                                             className={`pl-10`}
-                                            value={
+                                            defaultValue={
                                                 formData.phone === ""
                                                     ? "+48"
                                                     : formData.phone
                                             }
                                             onChange={handleChange}
-                                            required
                                         />
                                     </div>
                                 </div>

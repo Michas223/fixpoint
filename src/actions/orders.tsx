@@ -9,7 +9,6 @@ import { revalidatePath } from "next/cache";
 import {
     ChangeOrderStatusSchema,
     CreateOrderSchema,
-    SetOrderArrivedAtSchema,
     SetOrderCompletionDateSchema,
     SetOrderPriceSchema,
 } from "@/lib/zod";
@@ -40,6 +39,10 @@ export async function newOrder(values: z.infer<typeof CreateOrderSchema>) {
         const createdOrder = await db.order.create({
             data: {
                 title: values.device,
+                deviceType:
+                    values.deviceType === "other"
+                        ? values.otherDeviceType || ""
+                        : values.deviceType,
                 description: values.description,
                 deliveryMethod:
                     values.deliveryMethod.toUpperCase() as OrderDeliveryMethod,
@@ -165,55 +168,6 @@ export async function setOrderPrice(
             data: {
                 price: values.price,
             },
-        });
-
-        revalidatePath(`/orders/${orderId}`);
-
-        return {
-            success: true,
-        };
-    } catch {
-        return {
-            message: "Coś poszło nie tak!",
-        };
-    }
-}
-
-export async function setArrivedAt(
-    orderId: string,
-    values: z.infer<typeof SetOrderArrivedAtSchema>
-) {
-    try {
-        const clientIp = await getUserIP();
-        const session = await auth.api.getSession({
-            headers: await headers(),
-        });
-
-        if (!session) {
-            return {
-                message: "Nie jesteś zalogowany.",
-            };
-        }
-
-        if (session.user.role !== "admin") {
-            return {
-                message: "Nie jesteś zalogowany.",
-            };
-        }
-
-        try {
-            await rateLimiter.consume(clientIp, 2);
-        } catch {
-            return {
-                message: "Za dużo żądań. Spróbuj ponownie za chwilę.",
-            };
-        }
-
-        await db.order.update({
-            where: {
-                id: Number(orderId.replace("0", "")),
-            },
-            data: values,
         });
 
         revalidatePath(`/orders/${orderId}`);

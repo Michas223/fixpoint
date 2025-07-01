@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { motion } from "motion/react";
 import { Icons } from "@/components/icons";
@@ -22,11 +23,20 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useRouter } from "next/navigation";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "../ui/select";
 
 export default function CreateOrderModal({
     setShow,
+    isAdressExist,
 }: {
     setShow: (state: boolean) => void;
+    isAdressExist: boolean;
 }) {
     const [error, setError] = useState<string>("");
     const [isPending, setIsPending] = useState<boolean>(false);
@@ -36,6 +46,8 @@ export default function CreateOrderModal({
     const form = useForm<z.infer<typeof CreateOrderSchema>>({
         resolver: zodResolver(CreateOrderSchema),
         defaultValues: {
+            deviceType: "laptop",
+            otherDeviceType: "",
             device: "",
             description: "",
             deliveryMethod: "myself",
@@ -61,6 +73,17 @@ export default function CreateOrderModal({
             setIsPending(false);
         }
     };
+
+    const deliveryMethod = form.watch("deliveryMethod");
+    const addressRequired = ["tech_arrival", "delivery"];
+
+    useEffect(() => {
+        setError(
+            addressRequired.includes(deliveryMethod) && !isAdressExist
+                ? "Dla podanego dostarczenia sprzętu wymagane jest podanie adresu w ustawieniach profilu."
+                : ""
+        );
+    }, [deliveryMethod]);
 
     return (
         <>
@@ -98,6 +121,64 @@ export default function CreateOrderModal({
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="space-y-4"
                         >
+                            <div className="flex gap-2 items-end">
+                                <FormField
+                                    control={form.control}
+                                    name="deviceType"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>
+                                                Typ urządzenia
+                                            </FormLabel>
+                                            <Select
+                                                onValueChange={field.onChange}
+                                                defaultValue={field.value}
+                                            >
+                                                <FormControl>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Wybierz typ urządzenia" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent>
+                                                    <SelectItem value="laptop">
+                                                        Laptop
+                                                    </SelectItem>
+                                                    <SelectItem value="pc">
+                                                        Komputer
+                                                    </SelectItem>
+                                                    <SelectItem value="telefon">
+                                                        Telefon
+                                                    </SelectItem>
+                                                    <SelectItem value="konsola">
+                                                        Konsola
+                                                    </SelectItem>
+                                                    <SelectItem value="other">
+                                                        Inne
+                                                    </SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                {form.watch("deviceType") === "other" && (
+                                    <FormField
+                                        control={form.control}
+                                        name="otherDeviceType"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <Input
+                                                        placeholder="Drukarka"
+                                                        {...field}
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                )}
+                            </div>
                             <FormField
                                 control={form.control}
                                 name="device"
@@ -178,7 +259,11 @@ export default function CreateOrderModal({
                             <Button
                                 type="submit"
                                 className="w-full my-2 cursor-pointer"
-                                disabled={isPending}
+                                disabled={
+                                    isPending ||
+                                    (addressRequired.includes(deliveryMethod) &&
+                                        !isAdressExist)
+                                }
                                 aria-disabled={isPending}
                             >
                                 {isPending && (

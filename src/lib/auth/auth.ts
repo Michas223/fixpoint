@@ -42,6 +42,13 @@ export const auth = betterAuth({
         },
     },
     user: {
+        additionalFields: {
+            postalCode: { type: "string" },
+            city: { type: "string" },
+            street: { type: "string" },
+            buildingNumber: { type: "number" },
+            flat: { type: "number" },
+        },
         deleteUser: {
             enabled: true,
         },
