@@ -66,22 +66,7 @@ export const RegisterSchema = z.object({
 
 export const LoginSchema = z.object({
     email: z.string().email({ message: "Nieprawidłowy adres email" }),
-    password: z
-        .string()
-        .min(8, { message: "Hasło musi mieć co najmniej 8 znaków" })
-        .max(100)
-        .regex(/[A-Z]/, {
-            message: "Hasło musi zawierać przynajmniej jedną wielką literę",
-        })
-        .regex(/[a-z]/, {
-            message: "Hasło musi zawierać przynajmniej jedną małą literę",
-        })
-        .regex(/[0-9]/, {
-            message: "Hasło musi zawierać przynajmniej jedną cyfrę",
-        })
-        .regex(/[\W_]/, {
-            message: "Hasło musi zawierać przynajmniej jeden znak specjalny",
-        }),
+    password: z.string().min(1, { message: "Hasło jest wymagane" }),
 });
 
 export const CreateOrderSchema = z.object({

@@ -30,6 +30,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../ui/select";
+import Link from "next/link";
 
 export default function CreateOrderModal({
     setShow,
@@ -38,8 +39,9 @@ export default function CreateOrderModal({
     setShow: (state: boolean) => void;
     isAdressExist: boolean;
 }) {
-    const [error, setError] = useState<string>("");
+    const [error, setError] = useState<React.ReactNode>("");
     const [isPending, setIsPending] = useState<boolean>(false);
+    const [techArrivalNote, setTechArrivalNote] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -79,10 +81,22 @@ export default function CreateOrderModal({
 
     useEffect(() => {
         setError(
-            addressRequired.includes(deliveryMethod) && !isAdressExist
-                ? "Dla podanego dostarczenia sprzętu wymagane jest podanie adresu w ustawieniach profilu."
-                : ""
+            addressRequired.includes(deliveryMethod) && !isAdressExist ? (
+                <>
+                    <p>
+                        Dla podanego dostarczenia sprzętu wymagane jest podanie
+                        adresu w ustawieniach{" "}
+                        <Link href="/user" className="underline">
+                            profilu
+                        </Link>
+                        .
+                    </p>
+                </>
+            ) : (
+                ""
+            )
         );
+        setTechArrivalNote(deliveryMethod === "tech_arrival");
     }, [deliveryMethod]);
 
     return (
@@ -256,6 +270,12 @@ export default function CreateOrderModal({
                                     </FormItem>
                                 )}
                             />
+                            {techArrivalNote && (
+                                <p className="text-xs text-accent-foreground opacity-70">
+                                    Dojazd możliwy tylko na terenie Zbąszynka,
+                                    Chlastawy i Kosieczyna
+                                </p>
+                            )}
                             <Button
                                 type="submit"
                                 className="w-full my-2 cursor-pointer"

@@ -17,6 +17,10 @@ export default function LoginForm() {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [remember, setRemember] = useState(false);
+
     const switchShowPassword = () => setShowPassword((prev) => !prev);
 
     useEffect(() => {
@@ -89,6 +93,10 @@ export default function LoginForm() {
                                             name="email"
                                             placeholder="twoj@email.pl"
                                             className={`pl-10`}
+                                            value={email}
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
                                             required
                                         />
                                     </div>
@@ -121,6 +129,10 @@ export default function LoginForm() {
                                             }
                                             placeholder="********"
                                             className={`pl-10 pr-10`}
+                                            value={password}
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
                                             required
                                         />
                                         <button
@@ -138,7 +150,14 @@ export default function LoginForm() {
                                 </div>
 
                                 <div className="flex items-center space-x-2">
-                                    <Checkbox id="remember" name="remember" />
+                                    <Checkbox
+                                        id="remember"
+                                        name="remember"
+                                        checked={remember}
+                                        onCheckedChange={(checked) =>
+                                            setRemember(!!checked)
+                                        }
+                                    />
                                     <Label
                                         htmlFor="remember"
                                         className="text-sm font-normal"

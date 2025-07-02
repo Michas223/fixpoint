@@ -99,8 +99,7 @@ export async function signIn(pervState: State, formData: FormData) {
             switch (error.status) {
                 case "UNAUTHORIZED":
                     return {
-                        errorMessage:
-                            "Nie znaleziono konta z podanym adresem e-mail.",
+                        errorMessage: "Nieprawidłowy e-mail lub hasło.",
                     };
                 case "BAD_REQUEST":
                     return { errorMessage: error.message };
